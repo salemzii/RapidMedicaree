@@ -1,0 +1,25 @@
+{% extends 'userauth/base.html' %}
+{% load static %}
+    {% block content %}
+        <div>
+            <img class="profilePic" src="{{ user.doctorprofile.image.url }}">
+            <h3 class="line">{{ user.username }}</h3>
+            {% if user.doctorprofile.bio %}
+                <h4>Bio: {{ user.doctorprofile.bio }}</h4>
+            {% else %}
+                <h4>Bio: Bio has not been provided</h4>
+            {% endif %}
+            <h4>Age: {{ user.doctorprofile.age }}</h4>
+            <h4>Home Address: {{ user.doctorprofile.homeAddress }}</h4>
+            <h4>Work Address: {{ user.doctorprofile.workingAddress }}</h4>
+            <h4>Working hosptial: {{ user.doctorprofile.working_Hospital }}</h4>
+            <h4>Specialty: {{ user.doctorprofile.specialty }}</h4>
+            <h4>Consultation Fee: {{ user.doctorprofile.consultation_fee }}</h4>
+            <h4>Email: {{ user.email }}</h4>
+            <h4>Joined on: {{ user.date_joined|date:"F d, Y" }}</h4>
+            {% if request.user  == user  %}
+                <a href="{% url 'doctorupdate' %}">Update Profile</a>
+            {% endif %}
+        </div>
+
+    {% endblock content %}

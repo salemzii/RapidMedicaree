@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Basic Html Form Field</title>
+</head>
+<body>
+
+<h3> Select the option your use for RapidMedicare is suited for: </h3>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="checkbox" name="choice" value="Doctor/Consultant">
+        <label>Doctor/Consultant</label><br>
+        <input type="checkbox" name ="choice" value="Hospital">
+        <label>Hospital</label><br>
+        <input type="checkbox" name="choice" value="Patient">
+        <label>Patient</label><br>
+
+        <input type="submit" value="Next">
+    </form>
+
+    <p> {{ request }} </p>
+</body>
+</html>

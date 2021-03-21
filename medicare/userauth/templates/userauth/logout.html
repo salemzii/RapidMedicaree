@@ -1,0 +1,28 @@
+{% extends 'user/Base.html' %}
+{% load static %}
+    {% block content %}
+
+        <body>
+            <div class="nav-wrapper">
+                <div class="dots-wrapper">
+                    <div id= "dot-1" class="browser-dot"></div>
+                    <div id= "dot-2" class="browser-dot"></div>
+                    <div id= "dot-3" class="browser-dot"></div>
+                </div>
+
+                <ul id="navigation">
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+
+            <div class="main-container">
+                <div class="alert alert-info">
+                    <div class="contain">
+                        <h3>Logged Out Successfully, <a href="{% url 'login'%}">Click here to LOGIN again</a></h3>
+                    </div>
+                </div>
+            </div>
+        </body>
+
+    {% endblock content%}
