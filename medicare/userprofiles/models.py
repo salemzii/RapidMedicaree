@@ -47,6 +47,13 @@ class Hospitalprofile(models.Model):
             img.thumbnail(output_size)
             img.save(self.image.path)
 
+SPECTIALTIES = (
+    ('Den', 'Dentist'),
+    ('Pae', 'Peadetrician'),
+    ('Car', 'Cardiologist'),
+    ('Gyn', 'Gynacologist'),
+    ('Doc', 'MedicalDoctor')
+)
 
 class Doctorprofile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -54,13 +61,12 @@ class Doctorprofile(models.Model):
     verified = models.BooleanField(default=False)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
     homeAddress = models.CharField(max_length=101, default='Nigeria')
-    workingAddress = models.CharField(max_length=101, default='Nigeria')
     phoneNumber = models.CharField(max_length=11, default= 123)
     doc_cert = models.ImageField(default = 'Document.png', upload_to='Documents')
     license = models.ImageField(default ='Document.png', upload_to='Documents')
     working_Hospital = models.CharField(max_length=150)
     about_doc = models.TextField(default='Tell us About yourself Doc!')
-    specialty = models.CharField(max_length=100, default="Doctor")
+    specialty = models.CharField(max_length=100, default="Doc", choices=SPECTIALTIES)
     rating = models.IntegerField(default=0)
     consultation_fee = models.IntegerField(default=1000)
 

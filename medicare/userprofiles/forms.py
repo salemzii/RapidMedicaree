@@ -13,7 +13,7 @@ class DoctorProfileUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Doctorprofile
-        fields = ['bio', 'image', 'homeAddress', 'workingAddress',
+        fields = ['bio', 'image', 'homeAddress',
                   'phoneNumber', 'doc_cert', 'license', 'working_Hospital',
                   'about_doc', 'specialty', 'consultation_fee']
 
