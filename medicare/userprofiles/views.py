@@ -55,10 +55,15 @@ def hospitalupdateform(request):
 
 def userprofileview(request, id):
     userr = User.objects.get(id=id)
-    if userr.doctorprofile:
-        return redirect(reverse('doctorprofileview', args=[id]))
-    if userr.hospitalprofile:
-        return redirect(reverse('hospitalprofileview', args=[id]))
+    try:
+
+        if userr.doctorprofile:
+            return redirect(reverse('doctorprofileview', args=[id]))
+        if userr.hospitalprofile:
+            return redirect(reverse('hospitalprofileview', args=[id]))
+    except Exception as e:
+        print('Does not exist')
+
     context = {'user': userr}
     return render(request, 'userauth/userprofile.html', context)
 
