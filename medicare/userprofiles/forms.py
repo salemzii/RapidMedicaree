@@ -3,7 +3,6 @@ from .models import Userprofile, Doctorprofile, Hospitalprofile
 
 
 class UserProfileUpdateForm(forms.ModelForm):
-
     class Meta:
         model = Userprofile
         fields = ['bio', 'image', 'address', 'phoneNumber', 'age']

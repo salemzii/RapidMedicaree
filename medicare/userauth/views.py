@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.mail import send_mail
 from userprofiles.models import Userprofile, Doctorprofile, Hospitalprofile
+from .models import UserType
 from django.views.generic import UpdateView
 
 
@@ -103,13 +104,18 @@ def show_form(request):
         if val == "Patient":
             try:
                 prof = Userprofile.objects.create(user=request.user)
+                u_type = UserType.objects.create(user=request.user, typpe=val)
+                u_type.save()
                 prof.save()
+
             except Exception as e:
                 print("Something interuppted the proess... ")
 
         if val == "Doctor/Consultant":
             try:
                 prof = Doctorprofile.objects.create(user=request.user)
+                u_type = UserType.objects.create(user=request.user, typpe=val)
+                u_type.save()
                 prof.save()
             except Exception as e:
                 print("Something interuppted the proess... ")
@@ -117,6 +123,8 @@ def show_form(request):
         if val == "Hospital":
             try:
                 profile = Hospitalprofile.objects.create(user=request.user)
+                u_type = UserType.objects.create(user=request.user, typpe=val)
+                u_type.save()
                 profile.save()
             except Exception as e:
                 print("Something interuppted the proess... ")
@@ -126,6 +134,6 @@ def show_form(request):
 
 
 def verify(request):
-    pr=(request.user)
+    pr=request.user
     print(pr)
     return render(request, 'userauth/verify.html', {'vr': pr})
