@@ -79,4 +79,38 @@ def hospitalprofileview(request, id):
     context = {'user': hos}
     return render(request, 'userauth/hosprofile.html', context)
 
+
+def friends(request):
+    useradress = str(request.user.userprofile.address)
+    friendsadress = Userprofile.objects.all()
+
+    friends_list = [
+        friendadress.user for friendadress in friendsadress if str(useradress) == friendadress.address
+    ]
+
+    print(friends_list)
+
+    return render(request, 'userauth/friends.html', {'friends_list': friends_list})
+
+
+def doctors(request):
+    useradress = str(request.user.userprofile.address)
+    doctorsaddress = Doctorprofile.objects.all()
+
+    doctors = [
+        doctoraddress.user for doctoraddress in doctorsaddress if str(useradress) == doctoraddress.homeAddress
+    ]
+    return render(request, 'userauth/doctors.html', {'doctors': doctors})
+
+
+def hospitals(request):
+    useradress = str(request.user.userprofile.address)
+    hospitalsaddress = Hospitalprofile.objects.all()
+
+    hospitals = [
+        hospitaladdress.user for hospitaladdress in hospitalsaddress if str(useradress) == hospitaladdress .Address
+    ]
+    return render(request, 'userauth/hospitals.html', {'hospitals': hospitals})
+
 # Create your views here.
+

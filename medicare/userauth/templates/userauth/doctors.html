@@ -1,0 +1,14 @@
+{% extends 'userauth/base.html' %}
+{% load static %}
+{% block content %}
+        {% for doctor in doctors %}
+            {% if doctor %}
+                <fieldset>
+                   <span>{{ doctor.email }}  <button class="btn btn-outline-info" type="submit"><a href="{% url 'doctorprofileview' doctor.id %}">See Doctor</a></button></span>
+                </fieldset> <br>
+            {% elif not doctor %}
+                <h4>No Friends at your address at this time!</h4>
+            {% endif %}
+        {% endfor %}
+
+{% endblock content %}

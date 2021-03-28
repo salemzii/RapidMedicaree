@@ -3,7 +3,7 @@
     {% block content %}
         <div>
             <img class="profilePic" src="{{ user.doctorprofile.image.url }}">
-            <h3 class="line">{{ user.username }}</h3>
+            <span><h3 class="line">{{ user.username }}</h3> <button class="btn btn-outline-info" type="submit"><a href="{% url 'create-appointment' user.id %}">Book Consultation</a></button></span>
             {% if user.doctorprofile.bio %}
                 <h4>Bio: {{ user.doctorprofile.bio }}</h4>
             {% else %}

@@ -1,0 +1,14 @@
+{% extends 'userauth/base.html' %}
+{% load static %}
+{% block content %}
+        {% for hostipal in hospitals %}
+            {% if hospital %}
+                <fieldset>
+                   <span>{{ hospital.email }}  <button class="btn btn-outline-info" type="submit"><a href="{% url 'hospitalprofileview' hospital.id %}">See Hospital</a></button></span>
+                </fieldset> <br>
+            {% elif not hospital %}
+                    <h4>No Friends at your address at this time!</h4>
+            {% endif %}
+        {% endfor %}
+
+{% endblock content %}

@@ -1,0 +1,14 @@
+{% extends 'userauth/base.html' %}
+{% load static %}
+{% block content %}
+        {% for friend in friends_list %}
+            {% if friend %}
+                <fieldset>
+                   <span>{{ friend.email }}  <button class="btn btn-outline-info" type="submit"><a href="{% url 'userprofileview' friend.id %}">See friend</a></button></span>
+                </fieldset> <br>
+            {% else %}
+                    <h4>No Friends at your address at this time!</h4>
+            {% endif %}
+        {% endfor %}
+
+{% endblock content %}
