@@ -7,8 +7,9 @@ from django.contrib import messages
 from django.views.generic import CreateView
 import datetime
 from datetime import time, date
+from django.contrib.auth.decorators import login_required
 
-
+@login_required()
 def create_appointment(request, id):
     userr = User.objects.get(id=id)
     print(userr)
@@ -19,31 +20,19 @@ def create_appointment(request, id):
             time = form.cleaned_data.get('time')
             message = form.cleaned_data.get('message')
             patient = request.user
-            a = appointment.objects.create(doc=userr, time=form.cleaned_data.get('time'), message=form.cleaned_data.get('message'))
+            #a = appointment.objects.create(doc=userr, time=form.cleaned_data.get('time'), message=form.cleaned_data.get('message'))
             doc_appointments = userr.doctor_appointment.all()
-            print(a.time)
-            for time in range(len(doc_appointments)):
-                print(a.time == time)
-                if a.time != time:
-                    messages.error(request, "Time Slot Not Available! Try again")
-                    break
-                else:
+
+            for t in range(len(doc_appointments) + 1):
+                print(str(time) == str(t))
+                if str(time) == str(t):
+                    messages.error(request, "Sorry This Time Slot Not Available! Try Another One")
                     pass
+                else:
+                    a = appointment.objects.create(doc=userr, time=form.cleaned_data.get('time'),
+                                                   message=form.cleaned_data.get('message'))
             return redirect('verify')
     else:
         form = CreateAppointment()
     return render(request, 'userauth/createappointment.html', {'form': form})
 
-
-
-
-
-"""
-class CreateAppointmentView(CreateView):
-    model = appointment
-    context_object_name = 'form'
-    template_name = 'userauth/createappointment.html'
-    form_class = CreateAppointment
-    pk_url_kwarg = 'id'
-
-"""

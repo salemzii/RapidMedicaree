@@ -8,6 +8,7 @@ class UserRegisterForm(UserCreationForm):
     username = forms.CharField(max_length=50)
     email = forms.EmailField()
     phoneNumber = forms.IntegerField()
+    address = forms.CharField(max_length=120)
 
     class Meta:
         model = User

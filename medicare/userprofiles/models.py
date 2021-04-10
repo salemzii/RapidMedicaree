@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from PIL import Image
+
 
 
 class Userprofile(models.Model):
@@ -69,6 +69,30 @@ class Doctorprofile(models.Model):
     specialty = models.CharField(max_length=100, default="Doc", choices=SPECTIALTIES)
     rating = models.IntegerField(default=0)
     consultation_fee = models.IntegerField(default=1000)
+
+    def __str__(self):
+        return f"{self.user.username}'s Profile"
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        img = Image.open(self.image.path)
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size)
+            img.save(self.image.path)
+
+
+class Pharmacyprofile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.CharField(max_length=150)
+    verified = models.BooleanField(default=False)
+    Address = models.CharField(max_length=101, default='Nigeria')
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    phoneNumber = models.CharField(max_length=11, default=123)
+    license = models.ImageField(default='Document.png', upload_to='Documents')
+    specialty = models.CharField(max_length=100, default='Doc', choices=SPECTIALTIES)
+    rating = models.IntegerField(default=0)
+
 
     def __str__(self):
         return f"{self.user.username}'s Profile"

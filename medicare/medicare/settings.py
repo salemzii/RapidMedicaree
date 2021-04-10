@@ -28,7 +28,7 @@ SECRET_KEY = 'reri36nx7=5@x+02e(j6+n0mz%-(r)krj9&a4ao(l79q0plw7e'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.ngrok.io', 'localhost']
 
 
 # Application definition
@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'userauth',
     'userprofiles',
     'appointments',
+    'RapidMedicareApis',
+    'rest_framework',
+    'stores'
 ]
 
 MIDDLEWARE = [

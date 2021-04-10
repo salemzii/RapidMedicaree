@@ -1,5 +1,5 @@
 from django import forms
-from .models import Userprofile, Doctorprofile, Hospitalprofile
+from .models import Userprofile, Doctorprofile, Hospitalprofile, Pharmacyprofile
 
 
 class UserProfileUpdateForm(forms.ModelForm):
@@ -25,3 +25,10 @@ class HospitalProfileUpdateForm(forms.ModelForm):
                   'license', 'Frontview', 'Backview']
 
 
+
+class PharmacyProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Pharmacyprofile
+        fields = [
+            'bio', 'image', 'phoneNumber', 'license', 'specialty'
+        ]

@@ -1,8 +1,20 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import (
+                                render,
+                              redirect,
+                              get_object_or_404
+)
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm #UserUpdateForm #ProfileUpdateForm
-from django.utils.encoding import force_bytes, force_text, DjangoUnicodeDecodeError
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import (
+                                    force_bytes,
+                                   force_text,
+                                   DjangoUnicodeDecodeError
+)
+from django.utils.http import (
+                                urlsafe_base64_encode,
+                               urlsafe_base64_decode
+)
 from django.contrib.sites.shortcuts import get_current_site
 from .utils import account_activation_token
 from django.contrib.auth.models import User
@@ -10,9 +22,13 @@ from django.views.generic import View
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.mail import send_mail
-from userprofiles.models import Userprofile, Doctorprofile, Hospitalprofile
+from userprofiles.models import (Userprofile,
+                                 Doctorprofile,
+                                 Hospitalprofile,
+                                Pharmacyprofile,
+)
 from .models import UserType
-from django.views.generic import UpdateView
+
 
 
 #User registration
@@ -78,62 +94,66 @@ def show_form(request):
     print('this function has been called')
     print(request.user)
     val = ''
+
     try:
-        u_prof = Userprofile.objects.get(user= request.user)
+        u_prof = Userprofile.objects.get(user=request.user)
         if u_prof:
-            return redirect('verify')
+            return redirect(reverse('userprofileview', args=[u_prof.user.id]))
     except Exception as e:
         pass
 
     try:
         d_prof = Doctorprofile.objects.get(user=request.user)
         if d_prof:
-            return redirect('verify')
+            return redirect(reverse('userprofileview', args=[d_prof.user.id]))
     except Exception as e:
         pass
 
     try:
         h_prof = Hospitalprofile.objects.get(user=request.user)
         if h_prof:
-            return redirect('verify')
+            return redirect(reverse('hospitalprofileview', args=[h_prof.user.id]))
     except Exception as e:
         pass
 
+    try:
+        p_prof = Pharmacyprofile.objects.get(user=request.user)
+        if p_prof:
+            return redirect(reverse('pharmacyprofileview', args=[p_prof.user.id]))
+    except Exception as e:
+            pass
+
     if request.method == "POST":
         val = request.POST['choice']
-        if val == "Patient":
-            try:
+        try:
+            if val == "Patient":
                 prof = Userprofile.objects.create(user=request.user)
                 u_type = UserType.objects.create(user=request.user, typpe=val)
                 u_type.save()
                 prof.save()
-
-            except Exception as e:
-                print("Something interuppted the proess... ")
-
-        if val == "Doctor/Consultant":
-            try:
+            elif val == "Doctor/Consultant":
                 prof = Doctorprofile.objects.create(user=request.user)
                 u_type = UserType.objects.create(user=request.user, typpe=val)
                 u_type.save()
                 prof.save()
-            except Exception as e:
-                print("Something interuppted the proess... ")
-
-        if val == "Hospital":
-            try:
+            elif val == "Hospital":
                 profile = Hospitalprofile.objects.create(user=request.user)
                 u_type = UserType.objects.create(user=request.user, typpe=val)
                 u_type.save()
                 profile.save()
-            except Exception as e:
-                print("Something interuppted the proess... ")
 
+            elif val == "Pharmacy":
+                profile = Pharmacyprofile.objects.create(user=request.user)
+                u_type = UserType.objects.create(user=request.user, typpe=val)
+                u_type.save()
+                profile.save()
 
+        except Exception as e:
+            print("Something interuppted the process... ")
     return render(request, 'userauth/checkusertype.html', {'request': request})
 
 
 def verify(request):
     pr=request.user
     print(pr)
-    return render(request, 'userauth/verify.html', {'vr': pr})
+    return render(request, 'userauth/verify.html', {'vr':pr})
