@@ -1,0 +1,15 @@
+{% extends 'userauth/base.html' %}
+{% load static %}
+
+{% block content %}
+        {% for category in categories %}
+            {% if category %}
+                <fieldset>
+                    <span><a href="{% url 'categoryupdate' category.id %}"><p>{{ category.name }}</p></a>                     <p>{{ category.created_date }}</p></span>
+                </fieldset> <br>
+            {% else %}
+                    <h4>No categories for now</h4>
+            {% endif %}
+        {% endfor %}
+
+{% endblock content %}
