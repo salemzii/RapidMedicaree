@@ -1,0 +1,17 @@
+{% extends 'userauth/base.html' %}
+{% load static %}
+
+{% block content %}
+        {% for product in products %}
+            {% if product %}
+                <fieldset>
+                    <a href="{% url 'update-product' product.id %}"><p>{{ product.name }}</p></a>      <br>
+                    <p>{{ product.category }}</p>
+                    <img src="{{ imageURL }}">
+                </fieldset> <br>
+            {% else %}
+                    <h4>No categories for now</h4>
+            {% endif %}
+        {% endfor %}
+
+{% endblock content %}
