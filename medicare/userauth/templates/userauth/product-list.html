@@ -7,7 +7,7 @@
                 <fieldset>
                     <a href="{% url 'update-product' product.id %}"><p>{{ product.name }}</p></a>      <br>
                     <p>{{ product.category }}</p>
-                    <img src="{{ imageURL }}">
+                    <img class="profilePic" src="{{ product.image.url }}">
                 </fieldset> <br>
             {% else %}
                     <h4>No categories for now</h4>
